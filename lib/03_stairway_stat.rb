@@ -1,7 +1,6 @@
-#Début du jeu
-puts "---> Début du JEU <---"
-$step = 0
-$step_to_win = 10
+#Début intruction pour le calcul de stat
+
+
 
 #Creation des fonctions
 
@@ -14,7 +13,7 @@ end
 
 def dice_throwing
   print "Appuyer sur la touche --> ENTRER <-- pour lancer le dé :"
-  bin=gets
+  # bin=gets
   dice_result = rand 1..6
   puts "Vous avez obtenu... : #{dice_result}"
   return dice_result.to_i
@@ -47,10 +46,17 @@ end
 
 #Gestion des fonctions
 def perform
+  #Début du jeu
+  puts "---> Début du JEU <---"
+  $step = 0
+  $step_to_win = 10
+
   step_annoncing
-    
+  #boucle tant que le joueur n'a pas atteint la marche 10.
+  count_tour = 0
   while $step < $step_to_win
-  
+    
+      count_tour = count_tour + 1
       dice_result = dice_throwing
       playing(dice_result)
       step_annoncing
@@ -58,12 +64,29 @@ def perform
   end  
   
   winner
+  return count_tour
+
+end 
+
+
+
+def average_fishing_time
+  cent_parties = [] #déclare un tableau vide
+  100.times do |i| #utilise une boucle pour remplir le tableau
   
-end
+    count_tour = perform #Lancement du jeu
+    cent_parties[i]= count_tour
 
-#Lancement du jeu
-perform
+  end
+  
+  somme_tour = 0
+  cent_parties.each do |tour|
+    somme_tour = somme_tour + tour
+  end
+  puts "la somme des 100 tours est : #{somme_tour}"
+  average_finish_time = somme_tour/100
+  puts "la moyenne du nombre de tour pour finir une partie est : #{average_finish_time}"
 
+end 
 
-
-
+average_fishing_time
